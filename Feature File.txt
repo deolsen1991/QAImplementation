@@ -1,0 +1,46 @@
+Feature: Register a user
+	User should not be registered until a valid first name is entered in the first name text box
+	User should not be registered until a valid last name is entered in the last name text box
+	User should not be registered until a valid hobby is selected
+	User should not be registered until a valid 10 digit phone number is entered in the phone number text box
+	User should not be registered until a valid user name is entered
+	User should not be registered until a valid email is entered in the email text box
+	User should not be registered until a valid password is entered in the password box
+	User should not be registered until a matching password is entered in the confirm password box
+	Once all of the above are completed, the user can be registered with by pressing the submit button
+	All other fields are optional and do not need to be filled to register a user
+	
+Scenario: Required field not filled
+	Given the first name, last name, hobby box, phone number, user name, email, password, confirm passord boxes are required
+		And they are not filled
+	When I press the submit button
+	Then I should be redirected to the page with appropriate warnings
+	
+Scenario: Required field not filled correctly
+	Given the phone number and email boxes require specific formatting
+		And they are required
+	When I enter information in the wrong format
+		And press the submit button
+	Then I should be redirected to the page with warnings on formatting for the fields entered incorrectly
+
+Scenario: Password mismatch
+	Given the password and confirm password fields must be matching
+	When they do not match
+	Then the page will display a warning under the confirm password field
+		But if I press submit anyway it will redirect to the register page with a warning
+		
+Scenario: Hobby box is not ticked
+	Given one of the hobby boxes must be ticked
+	When one is not ticked
+		And the submit button is pressed
+	Then the page will return to the register page with a warning that the field is required
+	
+What IDE would you use? Eclipse, as I am using a java-based approach, I will be using Eclipse
+What language would you use? Java, my prefered language
+What BDD compiler would you use? The default eclipse compiler
+What unit testing framework would you use? Selenium
+What automation framework would you use to connect with your web application? Selenium web engine
+How would you automate continuous execution of this strategy? 
+	By implementing a test that uses UUIDs to enter information for all information that does not need to be formatted. 
+	For the fields that do, the email, phone number and password fields, make sure that the inputs are formatted correctly to ensure proper testing. Also, ensure that one of the three hobby buttons is selected through randomization.
+	Once that is done, have the program run in a loop until a number of iterations pass or the browser is closed.
